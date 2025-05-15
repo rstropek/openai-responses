@@ -4,7 +4,7 @@ import { FunctionTool } from 'openai/resources/responses/responses.mjs';
 export const getCustomersFunctionDefinition: FunctionTool = {
     type: 'function',
     name: 'getCustomers',
-    description: 'Gets a filtered list of customers. At least one filter MUST be provided in the parameters. The result list is limited to 25 customer.',
+    description: 'Gets a filtered list of customers. At least one filter MUST be provided in the parameters. The result list is limited to the first 25 customers.',
     parameters: {
         type: 'object',
         properties: {
