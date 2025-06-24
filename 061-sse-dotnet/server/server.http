@@ -1,0 +1,11 @@
+@host = http://localhost:5011
+
+POST {{host}}/messages
+Content-Type: application/json
+
+{
+    "message": "I am looking for a bike for daily commute"
+}
+
+###
+GET {{host}}/run

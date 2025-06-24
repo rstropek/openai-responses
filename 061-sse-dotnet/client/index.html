@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Bot</title>
+    <link rel="stylesheet" href="src/index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <div class="message assistant">
+                        <div class="message-content">
+                            Welcome! I'm your AI assistant. How can I help you today?
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="chat-input-form" id="chatForm">
+                <div class="input-container">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Type your message here..." 
+                        rows="1"
+                        required
+                    ></textarea>
+                    <button type="submit" id="sendButton">
+                        Send
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="status" id="status"></div>
+    </div>
+    
+    <script src="src/index.js" type="module"></script>
+</body>
+</html>
