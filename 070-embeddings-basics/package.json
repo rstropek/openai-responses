@@ -1,0 +1,22 @@
+{
+  "name": "041-embeddings-basics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ./src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.0.12",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.1.0",
+    "mathjs": "^14.5.3",
+    "openai": "^5.8.3"
+  }
+}
