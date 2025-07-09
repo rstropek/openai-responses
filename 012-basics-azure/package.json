@@ -1,0 +1,23 @@
+{
+  "name": "010-basics",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ./src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^24.0.12",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.1.0",
+    "openai": "^5.8.3"
+  }
+}
