@@ -1,0 +1,26 @@
+{
+  "name": "040-embeddings-rag",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "tsx ./src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.0.12",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@types/mssql": "^9.1.7",
+    "dotenv": "^17.1.0",
+    "mathjs": "^14.5.3",
+    "mssql": "^11.0.1",
+    "openai": "^5.8.3",
+    "tedious": "^18.6.1"
+  }
+}
