@@ -42,5 +42,6 @@ async function createResponse(client: OpenAI, previousResponseId: string | undef
     }
   }
 
+  console.log('\n');
   return previousResponseId;
 }

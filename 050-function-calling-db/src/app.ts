@@ -27,9 +27,22 @@ console.log('🤖: How can I help?');
 let previousResponseId: string | undefined = undefined;
 
 while (true) {
-  const userMessage = await readLine('\nYou (empty to quit): ');
+  const options = [
+    'I will visit Orlando Gee tomorrow. Give me a revenue breakdown of his revenue per product (absolute revenue and percentages). Also show me his total revenue.',
+    'Now show me a table with his revenue per year and month.',
+    'The table is missing some months. Probably because they did not buy anything in those months. Complete the table by adding 0 revenue for all missing months.',
+  ];
+  console.log('\n');
+  for (let i = 0; i < options.length; i++) {
+    console.log(`${i + 1}: ${options[i]}`);
+  }
+  let userMessage = await readLine('\nYou (empty to quit): ');
   if (!userMessage) {
     process.exit(0);
+  }
+  const selection = parseInt(userMessage);
+  if ((!isNaN(selection) && selection >= 1) || selection <= options.length) {
+    userMessage = options[selection - 1];
   }
 
   previousResponseId = await createResponse(client, pool, previousResponseId, userMessage);
