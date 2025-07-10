@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "tsx ./src/app.ts",
-    "inspect": "mcp-inspector tsx ./src/app.ts"
+    "inspect": "mcp-inspector npm start --silent"
   },
   "keywords": [],
   "author": "",
