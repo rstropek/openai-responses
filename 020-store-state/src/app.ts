@@ -33,7 +33,7 @@ async function runWithPreviousResponseId() {
   if (!userMessage) process.exit(0);
 
   let response = await client.responses.create({
-    model: "gpt-4o",
+    model: "gpt-5.2",
     instructions: systemPrompt,
     input: [{ role: "user", content: userMessage }],
     store: true,
@@ -47,7 +47,7 @@ async function runWithPreviousResponseId() {
     if (!userMessage) break;
 
     response = await client.responses.create({
-      model: "gpt-4o",
+      model: "gpt-5.2",
       previous_response_id: previousResponseId,
       instructions: systemPrompt,
       input: [{ role: "user", content: userMessage }],
@@ -72,7 +72,7 @@ async function runWithConversationHistory() {
   conversation.push({ role: "user", content: userMessage });
 
   let response = await client.responses.create({
-    model: "gpt-4o",
+    model: "gpt-5.2",
     instructions: systemPrompt,
     input: conversation,
   });
@@ -89,7 +89,7 @@ async function runWithConversationHistory() {
     conversation.push({ role: "user", content: userMessage });
 
     response = await client.responses.create({
-      model: "gpt-4o",
+      model: "gpt-5.2",
       instructions: systemPrompt,
       input: conversation,
     });

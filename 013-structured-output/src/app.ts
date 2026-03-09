@@ -16,7 +16,7 @@ const text = await fs.promises.readFile("email-thread.md", {
 });
 
 const response = await client.responses.parse({
-  model: "gpt-4o",
+  model: "gpt-5.2",
   instructions: systemPrompt,
   input: text,
   text: { format: zodTextFormat(InsuranceClaimSchema, "insurance_claim") },

@@ -26,7 +26,7 @@ while (true) {
 
 async function createResponse(client: OpenAI, instructions: string, previousResponseId: string | undefined, userMessage: string) {
   let response = await client.responses.create({
-    model: 'gpt-4o',
+    model: 'gpt-5.2',
     instructions,
     input: [{ role: 'user', content: userMessage }],
     stream: true,
