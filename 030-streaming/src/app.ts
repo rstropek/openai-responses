@@ -21,12 +21,13 @@ while (true) {
     process.exit(0);
   }
  
-  previousResponseId = await createResponse(client, previousResponseId, userMessage);
+  previousResponseId = await createResponse(client, systemPrompt, previousResponseId, userMessage);
 }
 
-async function createResponse(client: OpenAI, previousResponseId: string | undefined, userMessage: string) {
+async function createResponse(client: OpenAI, instructions: string, previousResponseId: string | undefined, userMessage: string) {
   let response = await client.responses.create({
     model: 'gpt-4o',
+    instructions,
     input: [{ role: 'user', content: userMessage }],
     stream: true,
     store: true,

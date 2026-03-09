@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import fs from 'fs';
 import { readLine } from './input-helper.ts';
-import { ResponseOutputText } from 'openai/resources/responses/responses.mjs';
+import type { ResponseOutputText } from 'openai/resources/responses/responses';
 import dotenv from 'dotenv';
 import {
   getCustomerProductsRevenue,

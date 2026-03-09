@@ -4,7 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "tsx ./src/app.ts"
+    "start": "tsx ./src/app.ts",
+    "start:previous-id": "tsx ./src/app.ts previous-id",
+    "start:conversation": "tsx ./src/app.ts conversation"
   },
   "keywords": [],
   "author": "",
@@ -12,12 +14,12 @@
   "description": "",
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
-    "@types/node": "^24.0.12",
-    "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "@types/node": "^25.3.5",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "dotenv": "^17.1.0",
-    "openai": "^5.8.3"
+    "dotenv": "^17.3.1",
+    "openai": "^6.27.0"
   }
 }

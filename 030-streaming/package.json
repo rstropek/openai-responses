@@ -12,12 +12,12 @@
   "description": "",
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
-    "@types/node": "^24.0.12",
+    "@types/node": "^25.3.5",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2"
   },
   "dependencies": {
     "dotenv": "^17.1.0",
-    "openai": "^5.8.3"
+    "openai": "^6.27.0"
   }
 }

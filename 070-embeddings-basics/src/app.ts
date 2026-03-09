@@ -1,12 +1,12 @@
 import OpenAI from "openai";
 import dotenv from "dotenv";
-import { readLine } from "./input-helper.js";
+import { readLine } from "./input-helper.ts";
 import { dot, norm } from "mathjs";
 
 dotenv.config();
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const text1 = await readLine("Enter the first text: ");

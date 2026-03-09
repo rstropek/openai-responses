@@ -1,10 +1,10 @@
 import OpenAI from "openai";
 import dotenv from "dotenv";
-import { createConnectionPool } from "./sql.js";
-import { getProductModels } from "./products.js";
-import { Embedding } from "openai/resources/embeddings.mjs";
+import { createConnectionPool } from "./sql.ts";
+import { getProductModels } from "./products.ts";
+import type { Embedding } from "openai/resources/embeddings";
 import fs from "fs";
-import { readLine } from "./input-helper.js";
+import { readLine } from "./input-helper.ts";
 import { dot } from "mathjs";
 
 dotenv.config();
@@ -18,7 +18,7 @@ const products = await getProductModels(pool);
 console.log("Product models complete", { count: products.length });
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const productEmbeddings = new Map<number, Embedding>();

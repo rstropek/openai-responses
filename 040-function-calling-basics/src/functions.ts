@@ -1,5 +1,4 @@
-import sql from 'mssql';
-import { FunctionTool } from 'openai/resources/responses/responses.mjs';
+import type { FunctionTool } from 'openai/resources/responses/responses';
 import { FREQUENT_WORDS } from './frequent-words.ts';
 
 export const buildPasswordTool: FunctionTool = {
@@ -19,10 +18,6 @@ export const buildPasswordTool: FunctionTool = {
 
 export type BuildPasswordParameters = {
   minimumPasswordLength: number;
-};
-
-export type Password = {
-  password: string;
 };
 
 export function buildPassword(filter: BuildPasswordParameters): string {

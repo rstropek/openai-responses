@@ -1,5 +1,5 @@
 import sql from 'mssql';
-import { FunctionTool } from 'openai/resources/responses/responses.mjs';
+import type { FunctionTool } from 'openai/resources/responses/responses';
 
 export const getCustomersFunctionDefinition: FunctionTool = {
     type: 'function',

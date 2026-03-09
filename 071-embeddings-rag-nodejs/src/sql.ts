@@ -10,7 +10,10 @@ export async function createConnectionPool(connectionString: string): Promise<sq
 
     // Parse the connection string as we need server, user, etc. separately
     const connectionStringParts = new Map<string, string>(
-        connectionString.split(';').map(p => p.split('=') as [string, string])
+        connectionString.split(';').filter(p => p.includes('=')).map(p => {
+            const idx = p.indexOf('=');
+            return [p.substring(0, idx).trim(), p.substring(idx + 1)] as [string, string];
+        })
     );
     let server = connectionStringParts.get('Server') ?? '';
     if (server.startsWith('tcp:')) {
@@ -21,7 +24,7 @@ export async function createConnectionPool(connectionString: string): Promise<sq
     }
 
     const config: sql.config = {
-        user: connectionStringParts.get('User') ?? '',
+        user: connectionStringParts.get('User ID') ?? connectionStringParts.get('User') ?? '',
         password: connectionStringParts.get('Password') ?? '',
         server: server,
         database: connectionStringParts.get('Initial Catalog') ?? '',

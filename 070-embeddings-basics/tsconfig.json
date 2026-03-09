@@ -1,11 +1,14 @@
 {
-  "compilerOptions": {
-      "target": "esnext",
-      "module": "nodenext",
-      "allowImportingTsExtensions": true,
-      "rewriteRelativeImportExtensions": true,
-      "strict": true,
-      "forceConsistentCasingInFileNames": true,
-      "sourceMap": true
-  }
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "nodenext",
+        "allowImportingTsExtensions": true,
+        "rewriteRelativeImportExtensions": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "sourceMap": true,
+        "noEmit": true,
+        "skipLibCheck": true,
+        "erasableSyntaxOnly": true
+    }
 }

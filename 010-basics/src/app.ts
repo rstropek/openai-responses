@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import fs from 'fs';
 import { readLine } from './input-helper.ts';
-import { ResponseInput, ResponseInputItem } from 'openai/resources/responses/responses.mjs';
+import { ResponseInput, EasyInputMessage } from 'openai/resources/responses/responses.mjs';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -24,7 +24,7 @@ const messages: ResponseInput = [
 
 while (true) {
   // print last message in messages
-  const lastMessage = messages[messages.length - 1] as ResponseInputItem.Message;
+  const lastMessage = messages[messages.length - 1] as EasyInputMessage;
   console.log(`\n🤖: ${lastMessage.content}`);
 
   // get user input

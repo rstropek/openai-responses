@@ -1,22 +1,20 @@
 {
-  "name": "041-embeddings-basics",
+  "name": "070-embeddings-basics",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "tsx ./src/app.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@types/node": "^24.0.12",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "@types/dotenv": "^6.1.1",
+    "@types/node": "^25.3.5",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "dotenv": "^17.1.0",
+    "dotenv": "^17.3.1",
     "mathjs": "^14.5.3",
-    "openai": "^5.8.3"
+    "openai": "^6.27.0"
   }
 }
