@@ -1,4 +1,4 @@
-﻿using FunctionCallingBasics;
+using FunctionCallingBasics;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using OpenAI.Responses;
@@ -7,7 +7,7 @@ using System.Text.Json;
 
 var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
 
-var client = new OpenAIResponseClient("gpt-4.1", config["OPENAI_API_KEY"]);
+var client = new ResponsesClient(config["OPENAI_API_KEY"]);
 var systemPrompt = await File.ReadAllTextAsync("system-prompt.md");
 
 using var sqlConnection = new SqlConnection(config["ADVENTURE_WORKS"]);
@@ -39,15 +39,15 @@ string[] options =
     {
         userMessage = options[selection - 1];
     }
-    
+
     Console.Write("\n🤖: ");
     previousResponseId = await client.CreateAssistantResponseAsync(sqlConnection, userMessage, systemPrompt, previousResponseId);
     Console.WriteLine();
 }
 
-public static class OpenAIResponseClientExtensions
+public static class ResponsesClientExtensions
 {
-    extension(OpenAIResponseClient client)
+    extension(ResponsesClient client)
     {
         public async Task<string> CreateAssistantResponseAsync(
             SqlConnection sqlConnection,
@@ -61,14 +61,18 @@ public static class OpenAIResponseClientExtensions
 
             while (true)
             {
-                var response = await client.CreateResponseAsync(input, new()
+                var options = new CreateResponseOptions()
                 {
+                    Model = "gpt-5.2",
                     Instructions = systemPrompt,
                     ToolChoice = ResponseToolChoice.CreateAutoChoice(),
                     Tools = { DatabaseFunctions.GetCustomersTool, DatabaseFunctions.GetProductsTool, DatabaseFunctions.GetCustomerProductsRevenueTool },
                     StoredOutputEnabled = true,
                     PreviousResponseId = previousResponseId,
-                });
+                };
+                foreach (var item in input) { options.InputItems.Add(item); }
+
+                var response = await client.CreateResponseAsync(options);
 
                 input.Clear();
 

@@ -24,7 +24,7 @@ public static class PasswordFunctions
             "additionalProperties": false
         }
         """u8.ToArray()),
-        functionSchemaIsStrict: true
+        strictModeEnabled: true
     );
 
     public static string BuildPassword(BuildPasswordParameters parameters)

@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using OpenAI.Responses;
 
 var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
 
-var client = new OpenAIResponseClient("gpt-4.1", config["OPENAI_API_KEY"]);
+var client = new ResponsesClient(config["OPENAI_API_KEY"]);
 var systemPrompt = await File.ReadAllTextAsync("system-prompt.md");
 
 Console.WriteLine("🤖: How can I help?");
@@ -24,20 +24,22 @@ while (true)
     Console.WriteLine();
 }
 
-public static class OpenAIResponseClientExtensions
+public static class ResponsesClientExtensions
 {
-    extension(OpenAIResponseClient client)
+    extension(ResponsesClient client)
     {
         public async Task<string> CreateAndPrintResponse(
-            string userMessage, 
-            string systemPrompt, 
+            string userMessage,
+            string systemPrompt,
             string? previousResponseId)
         {
-            var response = client.CreateResponseStreamingAsync(userMessage, new()
+            var response = client.CreateResponseStreamingAsync(new CreateResponseOptions()
             {
+                Model = "gpt-5.2",
                 PreviousResponseId = previousResponseId,
                 Instructions = systemPrompt,
                 StoredOutputEnabled = true,
+                InputItems = { ResponseItem.CreateUserMessageItem(userMessage) },
             });
             await foreach (var chunk in response)
             {
@@ -54,6 +56,6 @@ public static class OpenAIResponseClientExtensions
 
             return previousResponseId!;
         }
-        
+
     }
 }

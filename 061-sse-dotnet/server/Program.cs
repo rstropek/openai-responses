@@ -8,7 +8,7 @@ builder.Services.AddSingleton(serviceProvider =>
 {
     var configuration = serviceProvider.GetRequiredService<IConfiguration>();
     var apiKey = configuration["OPENAI_API_KEY"];
-    return new OpenAIResponseClient("gpt-4.1", apiKey);
+    return new ResponsesClient(apiKey);
 });
 builder.Services.AddSingleton(new State(await File.ReadAllTextAsync("system-prompt.md"), []));
 builder.Services.AddCors();
@@ -23,15 +23,19 @@ app.MapPost("/messages", ([FromBody] NewUserMessage message, [FromServices] Stat
     return TypedResults.Ok();
 });
 
-app.MapGet("/run", (OpenAIResponseClient client, [FromServices] State state, CancellationToken cancellationToken, ILogger<Program> logger) =>
+app.MapGet("/run", (ResponsesClient client, [FromServices] State state, CancellationToken cancellationToken, ILogger<Program> logger) =>
 {
     async IAsyncEnumerable<AssistantResponseMessage> GetAssistantStreaming([EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        var response = client.CreateResponseStreamingAsync(state.MessageHistory, new()
+        var options = new CreateResponseOptions()
         {
+            Model = "gpt-5.2",
             Instructions = state.SystemPrompt,
             StoredOutputEnabled = false,
-        }, cancellationToken);
+        };
+        foreach (var item in state.MessageHistory) { options.InputItems.Add(item); }
+
+        var response = client.CreateResponseStreamingAsync(options, cancellationToken);
         var result = new StringBuilder();
         await foreach (var chunk in response)
         {

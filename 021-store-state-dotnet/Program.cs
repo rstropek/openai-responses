@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using OpenAI.Responses;
 using System.ClientModel;
 
 var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
 
-var client = new OpenAIResponseClient("gpt-4.1", config["OPENAI_API_KEY"]);
+var client = new ResponsesClient(config["OPENAI_API_KEY"]);
 var systemPrompt = await File.ReadAllTextAsync("system-prompt.md");
 
 Console.WriteLine("🤖: How can I help?");
@@ -21,27 +21,29 @@ while (true)
     }
 
     var response = await client.CreateAssistantResponseAsync(userMessage, systemPrompt, previousResponseId);
-    
+
     Console.WriteLine($"\n🤖: {response.Value.GetOutputText()}");
     previousResponseId = response.Value.Id;
 }
 
-public static class OpenAIResponseClientExtensions
+public static class ResponsesClientExtensions
 {
-    extension(OpenAIResponseClient client)
+    extension(ResponsesClient client)
     {
-        public async Task<ClientResult<OpenAIResponse>> CreateAssistantResponseAsync(
-            string userMessage, 
-            string systemPrompt, 
+        public async Task<ClientResult<ResponseResult>> CreateAssistantResponseAsync(
+            string userMessage,
+            string systemPrompt,
             string? previousResponseId)
         {
-            return await client.CreateResponseAsync(userMessage, new()
+            return await client.CreateResponseAsync(new CreateResponseOptions()
             {
+                Model = "gpt-5.2",
                 PreviousResponseId = previousResponseId,
                 Instructions = systemPrompt,
                 StoredOutputEnabled = true,
+                InputItems = { ResponseItem.CreateUserMessageItem(userMessage) },
             });
         }
-        
+
     }
 }

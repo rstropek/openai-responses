@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using OpenAI.Responses;
 
 var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
 
-var client = new OpenAIResponseClient("gpt-4.1", config["OPENAI_API_KEY"]);
+var client = new ResponsesClient(config["OPENAI_API_KEY"]);
 var systemPrompt = await File.ReadAllTextAsync("system-prompt.md");
 
 var lastAssistantMessage = "How can I help you?";
@@ -24,9 +24,8 @@ while (true) {
 
   messages.Add(ResponseItem.CreateUserMessageItem(userMessage));
 
-  var response = await client.CreateResponseAsync(messages);
+  var response = await client.CreateResponseAsync("gpt-5.2", messages);
 
   messages.Add(ResponseItem.CreateAssistantMessageItem(response.Value.GetOutputText()));
   lastAssistantMessage = response.Value.GetOutputText();
 }
-

@@ -87,7 +87,7 @@ public static class DatabaseFunctions
             "additionalProperties": false
         }
         """u8.ToArray()),
-        functionSchemaIsStrict: true
+        strictModeEnabled: true
     );
 
     public static readonly ResponseTool GetProductsTool = ResponseTool.CreateFunctionTool(
@@ -114,7 +114,7 @@ public static class DatabaseFunctions
             "additionalProperties": false
         }
         """u8.ToArray()),
-        functionSchemaIsStrict: true
+        strictModeEnabled: true
     );
 
     public static readonly ResponseTool GetCustomerProductsRevenueTool = ResponseTool.CreateFunctionTool(
@@ -161,7 +161,7 @@ public static class DatabaseFunctions
             "additionalProperties": false
         }
         """u8.ToArray()),
-        functionSchemaIsStrict: true
+        strictModeEnabled: true
     );
 
     public static async Task<List<Customer>> GetCustomers(SqlConnection connection, GetCustomersParameters filter)

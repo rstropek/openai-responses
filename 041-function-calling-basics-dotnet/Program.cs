@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using OpenAI.Responses;
 using FunctionCallingBasics;
 using System.Text.Json;
 
 var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
 
-var client = new OpenAIResponseClient("gpt-4.1", config["OPENAI_API_KEY"]);
+var client = new ResponsesClient(config["OPENAI_API_KEY"]);
 var systemPrompt = await File.ReadAllTextAsync("system-prompt.md");
 
 Console.WriteLine("🤖: How can I help?");
@@ -26,9 +26,9 @@ while (true)
     Console.WriteLine();
 }
 
-public static class OpenAIResponseClientExtensions
+public static class ResponsesClientExtensions
 {
-    extension(OpenAIResponseClient client)
+    extension(ResponsesClient client)
     {
         public async Task<string> CreateAssistantResponseAsync(
             string userMessage,
@@ -41,14 +41,18 @@ public static class OpenAIResponseClientExtensions
 
             while (true)
             {
-                var response = await client.CreateResponseAsync(input, new()
+                var options = new CreateResponseOptions()
                 {
+                    Model = "gpt-5.2",
                     Instructions = systemPrompt,
                     ToolChoice = ResponseToolChoice.CreateAutoChoice(),
                     Tools = { PasswordFunctions.BuildPasswordTool, },
                     StoredOutputEnabled = true,
                     PreviousResponseId = previousResponseId,
-                });
+                };
+                foreach (var item in input) { options.InputItems.Add(item); }
+
+                var response = await client.CreateResponseAsync(options);
 
                 input.Clear();
 
